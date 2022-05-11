@@ -1,0 +1,50 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Webbutik";
+}
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            @if (Model == null)
+            {
+                <h3 style="text-align: center">Inga produkter hittades...</h3>
+            }
+            else
+            {
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-3">
+                        <ul id="product-list">
+                            <li class="product-item">
+                                <div class="item-container">
+                                    <div class="image-container">
+                                        <img class="product-image" src="@product.ImageLink" alt="Produktbild" />
+                                    </div>
+                                    <div class="product-information-container">
+                                        <div class="product-information-header">
+                                            <h6 id="product-header">@product.ProductName</h6>
+                                        </div>
+                                        <div class="product-information-details-1">
+                                            <p id="product-description">@product.ProductDescription</p>
+                                        </div>
+                                        <div class="product-information-details-2">
+                                            <h6 id="product-price">@product.ProductPrice SEK</h6>
+                                        </div>
+                                        <div class="product-information-actions">
+                                            <form asp-controller="Cart" asp-action="AddItemToCart" method="post">
+                                                <input type="hidden" name="ProductId" value="@product.ProductId" />
+                                                <input type="submit" id="products_button_add_to_cart" value="Lägg i varukorgen" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</body>
